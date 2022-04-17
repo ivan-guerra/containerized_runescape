@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# This script acts as a wrapper around the execution of the RuneLite JAR file.
+# There's additional code in the script to wait for the RuneLite process to
+# exit. This code is necessary and is the main reason why this wrapper
+# script exists. When you run RuneLite.jar, it spawns a second child process
+# and exits the original (parent) process. Docker interprets the exit of the
+# parent as completion of the java -jar command and exits the container (i.e.,
+# we never get to see the RuneLite client spawn). The hack around that is to
+# insert a slight delay and capture the PID of the RuneLite client process
+# then, wait for the client to exit.
+
+# Run RuneLite.
+java -jar /usr/local/bin/RuneLite.jar
+
+# Give RuneLite a few seconds to boot up.
+sleep 20
+
+# Find the PID of RuneLite client process.
+RUNELITE_PID=$(pidof java)
+
+# Wait until the User exits the RuneLite client session.
+tail --pid=$RUNELITE_PID -f /dev/null
