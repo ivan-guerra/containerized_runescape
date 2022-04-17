@@ -11,10 +11,10 @@ RUN apt-get update && apt-get install -y \
 # is broken. When the RuneLite team fixes the issue, you may want to correct
 # the RUNELITE_URL so that it grabs the latest release.
 ENV RUNELITE_URL="https://github.com/runelite/launcher/releases/download/2.4.2/RuneLite.jar"
-ADD osrs         /usr/local/bin
+ADD runelite /usr/local/bin
 RUN wget $RUNELITE_URL -P /usr/local/bin    \
     && chmod +x /usr/local/bin/RuneLite.jar \
-    && chmod +x /usr/local/bin/osrs
+    && chmod +x /usr/local/bin/runelite
 
 ENV HOME /home/runescape
 RUN useradd --create-home --home-dir $HOME runescape \
@@ -23,4 +23,4 @@ RUN useradd --create-home --home-dir $HOME runescape \
 WORKDIR $HOME
 USER runescape
 
-CMD ["osrs"]
+CMD ["runelite"]
