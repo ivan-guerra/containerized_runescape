@@ -40,8 +40,8 @@ docker run --rm                                           \
     -v ${XAUTH}:${XAUTH}                                  \
     -e XAUTHORITY=${XAUTH}                                \
     -e DISPLAY=${DISPLAY}                                 \
-    -v ${HOME}/.rs3/.runescape:/home/runescape/.runescape      \
-    -v ${HOME}/.rs3/Jagex:/home/runescape/Jagex                \
+    -v ${HOME}/.rs3/.runescape:/home/runescape/.runescape \
+    -v ${HOME}/.rs3/Jagex:/home/runescape/Jagex           \
     iguerra130154/containerized_runescape:rs3 /usr/bin/runescape-launcher
 ```
 

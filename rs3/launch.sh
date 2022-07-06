@@ -5,7 +5,7 @@
 # point to an existing directory on your system where you would like NXT cache
 # files to be stored.
 
-RS3_IMAGE="iguerra130154/rs3:latest"
+RS3_IMAGE="iguerra130154/containerized_runescape:rs3"
 
 # Location where NXT client cache files will be placed on the host filesystem.
 NXT_CACHE="/home/ieg/.rs3"
