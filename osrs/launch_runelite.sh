@@ -1,21 +1,21 @@
 #!/bin/bash
 
 # This script launches RuneLite from a docker container. Before running this
-# script, you should set the RUNELITE_ROOT environment variable to point to an
+# script, you should set the RUNELITE_CACHE environment variable to point to an
 # existing directory on your system where you would like RuneLite cache files
 # to be stored.
 
 RUNELITE_IMAGE="iguerra130154/runelite:latest"
 
 # Location where RuneLite cache files will be placed on the host filesystem.
-RUNELITE_ROOT="/home/ieg/.runelite"
+RUNELITE_CACHE="/home/ieg/.runelite"
 
-if [ -z "$RUNELITE_ROOT" ]
+if [ -z "$RUNELITE_CACHE" ]
 then
-    echo "error: RUNELITE_ROOT has not been set"
+    echo "error: RUNELITE_CACHE has not been set"
     exit 1
 else
-    echo "RuneLite cache files will be saved to '$RUNELITE_ROOT'"
+    echo "RuneLite cache files will be saved to '$RUNELITE_CACHE'"
 fi
 
 # Credit to this SO post that shows a method for generating an Xauthority file
@@ -26,10 +26,10 @@ XAUTH="/tmp/.docker.xauth"
 touch ${XAUTH}
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
-docker run --rm                          \
-    -v ${XSOCK}:${XSOCK}                 \
-    -v ${XAUTH}:${XAUTH}                 \
-    -e XAUTHORITY=${XAUTH}               \
-    -e DISPLAY=${DISPLAY}                \
-    -v ${RUNELITE_ROOT}:/home/runescape/ \
+docker run --rm                           \
+    -v ${XSOCK}:${XSOCK}                  \
+    -v ${XAUTH}:${XAUTH}                  \
+    -e XAUTHORITY=${XAUTH}                \
+    -e DISPLAY=${DISPLAY}                 \
+    -v ${RUNELITE_CACHE}:/home/runescape/ \
     ${RUNELITE_IMAGE}
