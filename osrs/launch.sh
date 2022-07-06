@@ -5,7 +5,7 @@
 # existing directory on your system where you would like RuneLite cache files
 # to be stored.
 
-RUNELITE_IMAGE="iguerra130154/runelite:latest"
+RUNELITE_IMAGE="iguerra130154/containerized_runescape:osrs"
 
 # Location where RuneLite cache files will be placed on the host filesystem.
 RUNELITE_CACHE="/home/ieg/.runelite"
