@@ -8,7 +8,7 @@
 RUNELITE_IMAGE="iguerra130154/runelite:latest"
 
 # Location where RuneLite cache files will be placed on the host filesystem.
-RUNELITE_ROOT=""
+RUNELITE_ROOT="/home/ieg/.runelite"
 
 if [ -z "$RUNELITE_ROOT" ]
 then
@@ -26,7 +26,7 @@ XAUTH="/tmp/.docker.xauth"
 touch ${XAUTH}
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
-docker run --rm -it                      \
+docker run --rm                          \
     -v ${XSOCK}:${XSOCK}                 \
     -v ${XAUTH}:${XAUTH}                 \
     -e XAUTHORITY=${XAUTH}               \
