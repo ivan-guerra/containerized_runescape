@@ -26,12 +26,16 @@ XAUTH="/tmp/.docker.xauth"
 touch ${XAUTH}
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
-docker run --rm                                           \
-    --privileged                                          \
-    -v ${XSOCK}:${XSOCK}                                  \
-    -v ${XAUTH}:${XAUTH}                                  \
-    -e XAUTHORITY=${XAUTH}                                \
-    -e DISPLAY=${DISPLAY}                                 \
-    -v ${NXT_CACHE}/.runescape:/home/runescape/.runescape \
-    -v ${NXT_CACHE}/Jagex:/home/runescape/Jagex           \
+# Details on how I got the audio working can be found here:
+# https://comp0016-team-24.github.io/dev/problem-solving/2020/10/30/passing-audio-into-docker.html
+docker run --rm                                                      \
+    --privileged                                                     \
+    -v ${XSOCK}:${XSOCK}                                             \
+    -v ${XAUTH}:${XAUTH}                                             \
+    -e XAUTHORITY=${XAUTH}                                           \
+    -e DISPLAY=${DISPLAY}                                            \
+    -e PULSE_SERVER=unix:/run/user/${EUID}/pulse/native              \
+    -v /run/user/${EUID}/pulse/native:/run/user/${EUID}/pulse/native \
+    -v ${NXT_CACHE}/.runescape:/home/runescape/.runescape            \
+    -v ${NXT_CACHE}/Jagex:/home/runescape/Jagex                      \
     ${RS3_IMAGE} /usr/bin/runescape-launcher
