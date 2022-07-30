@@ -2,11 +2,9 @@
 # This image is based off the work done by fusion809:
 # https://hub.docker.com/r/fusion809/runescape-launcher/
 
-FROM ubuntu:latest
+FROM ubuntu:focal
 
-RUN echo "deb http://security.ubuntu.com/ubuntu impish-security main" |   \
-    tee /etc/apt/sources.list.d/impish-security.list                    &&\
-    apt-get update                                                      &&\
+RUN apt-get update                                                      &&\
     DEBIAN_FRONTEND=noninteractive                                      &&\
     TZ=America/Los_Angeles                                              &&\
     apt-get install -y --no-install-recommends                            \
