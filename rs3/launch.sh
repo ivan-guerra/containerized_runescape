@@ -18,6 +18,11 @@ else
     echo "NXT cache files will be saved to '$NXT_CACHE'"
 fi
 
+# Make NXT cache subdirectories. In the case the subdirs already exist, the
+# -p ensures the mkdir commands are harmless.
+mkdir -p $NXT_CACHE/.runescape
+mkdir -p $NXT_CACHE/Jagex
+
 # Credit to this SO post that shows a method for generating an Xauthority file
 # on the fly.
 # https://stackoverflow.com/questions/16296753/can-you-run-gui-applications-in-a-linux-docker-container/25280523#25280523
