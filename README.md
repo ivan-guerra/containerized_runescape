@@ -5,31 +5,25 @@ NXT Client. The scripts included in this project assume you are running an X
 server on a Linux host PC with your distro's latest
 [Docker](https://docs.docker.com/engine/install/) version installed.
 
+### Setting Up the Client Cache
+
+Whether you are playing OSRS or RS3, either game's client maintains a cache of
+data files. Files generated in a docker container are typically gone once the
+container is shutdown. It would suck to have to rebuild GB of cache for RS3 or
+reconfigure your RuneLite plugins everytime you wanted to play. To avoid all
+that, you should setup a directory on your PC where cache files for each client
+will live. The directory can be anywhere on your PC where your user will have
+access to it.
+
+> **Warning**
+> Do not point the RS3 client and RuneLite client at the same cache directory!
+
 ### Launching the Client
 
-The easiest way to get the client up and running is to navigate to the `osrs`/
-`rs3` folder and run the included `launch.sh` script. For example, to run
-the OSRS client
+The easiest way to launch either client is to use the `launch.sh` script
+included in each game's directory.
 
-```
-cd containerized_runescape/osrs && ./launch.sh
-```
-
-**WARNING: Before running `launch.sh`, edit the RUNELITE_CACHE/RS3_CACHE
-environment variable to point to the location on the host filesystem where
-the client will be placing its cache files.**
-
-### Note to Windows Users
-
-Even though this repo doesn't include the scripts to do it, it's possible to
-run both clients on Windows.
-
-First, install
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-* [Xming](https://sourceforge.net/projects/xming/)
-
-Next, convert the `launch.sh` to a Windows PowerShell/CMD script. The tricky
-part of the conversion will be passing the appropriate `DISPLAY` info from
-Xming running on the host to the container. Checkout this
-[article](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde)
-for tips on how to do just that.
+> **Note**
+> Before running `launch.sh`, edit the file to point to the cache folder you
+> previously created. Set the `*_CACHE` variable to the cache folder's absolute
+> path.
