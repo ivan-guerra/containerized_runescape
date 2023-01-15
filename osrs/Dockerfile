@@ -2,9 +2,11 @@
 
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     default-jre \
-    wget
+    pulseaudio \
+    wget &&\
+    rm -rf /var/lib/apt/lists/*
 
 ENV RUNELITE_URL="https://github.com/runelite/launcher/releases/latest/download/RuneLite.jar"
 ADD runelite /usr/local/bin

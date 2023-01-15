@@ -26,10 +26,12 @@ XAUTH="/tmp/.docker.xauth"
 touch ${XAUTH}
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
-docker run --rm                           \
-    -v ${XSOCK}:${XSOCK}                  \
-    -v ${XAUTH}:${XAUTH}                  \
-    -e XAUTHORITY=${XAUTH}                \
-    -e DISPLAY=${DISPLAY}                 \
+docker run --rm \
+    -v ${XSOCK}:${XSOCK} \
+    -v ${XAUTH}:${XAUTH} \
+    -e XAUTHORITY=${XAUTH} \
+    -e DISPLAY=${DISPLAY} \
+    -e PULSE_SERVER=unix:/run/user/${EUID}/pulse/native \
+    -v /run/user/${EUID}/pulse/native:/run/user/${EUID}/pulse/native \
     -v ${RUNELITE_CACHE}:/home/runescape/ \
     ${RUNELITE_IMAGE}
